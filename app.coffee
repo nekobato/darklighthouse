@@ -4,10 +4,17 @@ child_p = require 'child_process'
 users = require './user.json'
 
 # bluetooth event
-btSerial.on 'found', (addr, name) ->
+btSerial.on 'found', (address, name) ->
 	for user in users
-		if user.addr == addr
+		if user.address is address
+			now = Date.now()
+			youWelcome(user) if !user.time or (now - user.time) > 300000
 			console.log user.name + ' is here.'
+			user.time = now
+
+# You Welcome
+youWelcome = (user) ->
+	console.log '*** Welcome ' + user.name + ' ***'
 
 # forever discover
 discover = () ->
