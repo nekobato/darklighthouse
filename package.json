@@ -1,0 +1,22 @@
+{
+  "name": "darkLighthouse",
+  "version": "0.0.1",
+  "description": "Waga na ha dark-lighthouse...",
+  "main": "app.coffee",
+  "scripts": {
+    "start": "coffee app.coffee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.nekobato.net:nekobato/darklighthouse.git"
+  },
+  "keywords": [
+    "bluetooth"
+  ],
+  "author": "nekobato",
+  "license": "MIT-Lisence",
+  "dependencies": {
+    "bluetooth-serial-port": "~1.0.5",
+    "request": "~2.27.0"
+  }
+}
