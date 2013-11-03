@@ -1,11 +1,7 @@
-welcome = (user) ->
-	# welcome message
-	console.info '*** Welcome ' + user.name + ' ***'
-	
-	# open the door
-	child_p = require 'child_process'
-	child_p.exec "curl -d 'tuple=[\"door\",\"open\"]' http://linda.masuilab.org/delta.write", (a,b,c) ->
-		console.info 'door opened.'
+{spawn} = require 'child_process'
 
-module.exports =
-	welcome: welcome
+exports.welcome = (user) ->
+  console.info '*** Welcome ' + user.name + ' ***'
+  curl = spawn 'curl', ['-d', 'tuple=["door","open"]', 'http://linda.masuilab.org/delta.write' ]
+  curl.on 'close', ->
+    console.info 'door opened.'
