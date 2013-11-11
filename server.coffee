@@ -12,7 +12,6 @@ ws.on 'message', (data) ->
 	json = JSON.parse data
 	if json.type is '__session_id'
 		session = json.type
-		#ws.send JSON.stringify({type: "__channel_id", data: null, session: session})
 		console.log 'discovering...'
 		discover()
 
@@ -24,11 +23,10 @@ ws.on 'close', () ->
 
 # bluetooth event
 btSerial.on 'found', (address, name) ->
-	for user in users when user.address is address
-		ws.send JSON.stringify({
-			type: "__linda_write",
-			data: ["delta", ["distance","deltaTV","nekobato", 0], {}],
-			session: session })
+	ws.send JSON.stringify({
+		type: "__linda_write",
+		data: ["delta", ["distance", "deltaTV", address, 0], {}],
+		session: session })
 
 discover = ->
   btSerial.inquire()

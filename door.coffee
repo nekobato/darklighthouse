@@ -18,7 +18,7 @@ ws.on 'message', (data) ->
 			data: ["delta", ["distance","deltaTV"], callbackID],
 			session: json.data})
 	if json.data.tuple
-		for user in users when user.name is json.data.tuple[1]
+		for user in users when user.address is json.data.tuple[1]
 			now = new Date.now()
 			welcome(user) if not user.time or brbTime < now - user.time
 			user.time = now
