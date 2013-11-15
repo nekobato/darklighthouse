@@ -1,5 +1,6 @@
 WebSocket = require 'ws'
-ws = new WebSocket 'ws://linda.masuilab.org:10010'
+wsUri = 'ws://linda.masuilab.org:10010'
+ws = new WebSocket wsUri
 users = require './user.json'
 {welcome} = require './action'
 
@@ -25,6 +26,9 @@ ws.on 'message', (data) ->
 
 ws.on 'error', (err) ->
 	console.log 'error: ' + err
+	setTimeout () ->
+		ws = wsUri
+	, 10000
 
 ws.on 'close', () ->
 	console.log 'connection closed'

@@ -1,7 +1,8 @@
 btSerial = new (require('bluetooth-serial-port')).BluetoothSerialPort()
 users = require './user.json'
 WebSocket = require 'ws'
-ws = new WebSocket 'ws://linda.masuilab.org:10010'
+wsUri = 'ws://linda.masuilab.org:10010'
+ws = new WebSocket wsUri
 
 session = null
 
@@ -17,12 +18,16 @@ ws.on 'message', (data) ->
 
 ws.on 'error', (err) ->
 	console.log 'error: ' + err
+	setTimeout () ->
+		ws = wsUri
+	, 10000
 
 ws.on 'close', () ->
 	console.log 'connection closed'
 
 # bluetooth event
 btSerial.on 'found', (address, name) ->
+	console.log address + ' ' + name
 	ws.send JSON.stringify({
 		type: "__linda_write",
 		data: ["delta", ["distance", "deltaTV", address, 0], {}],
